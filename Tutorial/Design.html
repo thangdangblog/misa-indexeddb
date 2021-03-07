@@ -1,0 +1,2056 @@
+<!DOCTYPE html>
+<html>
+
+  
+<!-- Mirrored from dexie.org/docs/Tutorial/Design by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 07 Mar 2021 15:39:34 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Design</title>
+  <meta name="description" content="The easiest way to use IndexedDB. A lightweight, minimalistic wrapper that provides a straightforward API for developers using IndexedDB.">
+
+  <link href='../../assets/css/bootstrap.min.css' rel='stylesheet'>
+  <link href='../../assets/css/prism-ghcolors.css' rel='stylesheet'>
+  <link href='../../assets/css/stylesheet.css' rel='stylesheet'>
+  <link href="../../assets/css/docs.css" rel="stylesheet">
+  <link href="../../assets/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="shortcut icon" href="../../assets/images/favicon-yuri.png" />
+  <script src="../../assets/js/offline-switch.js"></script>
+</head>
+
+
+  <body>
+		<nav class="navbar navbar-default" style="z-index: 10;">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <!-- <a class="navbar-brand" href="/" style="background-image: url('/assets/images/dexie-logo-icon-menu-dark-bkgimg.svg'); background-repeat: no-repeat; background-position: 7px 8px;">Dexie.js</a> -->
+      <a class="navbar-brand" href="https://dexie.org/"><img src="https://dexie.org/assets/images/dexie-logo-icon-menu-dark-img.svg" class="dexie-logo-icon-menu" />Dexie.js</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="https://dexie.org/cloud/"><img src="https://dexie.org/assets/images/dexie-logo-icon-menu-dark-img.svg" class="dexie-logo-icon-menu" />Dexie Cloud<span class="beta">BETA</span></a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Docs <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="../index.html">Dexie.js Docs</a></li>
+            <li><a href="../API-Reference.html#quick-reference">Dexie.js Cheat Sheet</a></li>
+            <li><a href="../Samples.html">Dexie.js Samples</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="https://dexie.org/cloud/docs/">Dexie Cloud Docs</a></li>
+            <li><a href="https://dexie.org/cloud/docs/cli">Dexie Cloud CLI</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Support <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="http://stackoverflow.com/questions/tagged/dexie">Dexie Questions on StackOverflow</a></li>
+            <li><a href="https://github.com/dfahlander/Dexie.js/issues?utf8=%E2%9C%93&amp;q=is%3Aissue%20label%3Aquestion">Questions on GitHub</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="http://stackoverflow.com/questions/ask?tags=dexie">Ask new question on Stackoverflow (best chance for a reply)</a></li>
+            <li><a href="https://github.com/dfahlander/Dexie.js/issues/new">File a GitHub issue on Dexie.js</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="https://dexie.org/contact">Contact</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Who use Dexie? <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a target="_blank" href="https://www.whatsapp.com/"><img class="icon" src="../../assets/images/whatsapp.png"> WhatsApp</a></li>
+            <li><a target="_blank" href="https://todo.microsoft.com/"><img class="icon" src="https://dexie.org/assets/images/microsoft-todo.ico"> Microsoft To Do</a></li>
+            <li><a target="_blank" href="https://desktop.github.com/"><img class="icon" src="https://dexie.org/assets/images/github-desktop-icon.svg" > Github Desktop</a></li>
+            <li><a target="_blank" href="https://www.flightradar24.com/"><img class="icon" src="https://dexie.org/assets/images/flightradar24.svg"> Flightradar24 - real-time flight info</a></li>
+            <li><a target="_blank" href="https://wire.com/"><img class="icon" src="https://dexie.org/assets/images/wire-icon.ico"> Wire - An end-to-end encrypted chat application</a></li>
+            <li><a target="_blank" href="https://getmemex.com/"><img class="icon" src="../../assets/images/memex-icon.png"> Memex - Bookmarking for power users</a></li>
+            <li><a target="_blank" href="../../../github.com/dfahlander/Dexie.js/network/dependents9a48.html?package_id=UGFja2FnZS0xMzg0ODIyOQ%3D%3D">... more than 5000 repos on GitHub</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a target="_blank" href="../../../trends.builtwith.com/javascript/Dexie.html"><img class="icon" src="https://dexie.org/assets/images/builtwith-icon.ico"> Builtwith.com's usage stats for Dexie.js</a></li>
+            <li><a target="_blank" href="https://w3techs.com/technologies/overview/javascript_library"><img class="icon" src="https://dexie.org/assets/images/w3techs-icon.ico"> Dexie.js is among the <span style="font-weight: bold">Top-30</span> JS libraries according to w3techs.com</a></li>
+          </ul>
+        </li>
+        <li><a href="https://dexie.org/contact">Contact </a></li>
+        
+        <li><a href="../../../github.com/dfahlander/Dexie.js/releases.html">Releases </a></li>
+        <li><a href="https://medium.com/dexie-js">Blog </a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+
+    <div id="offline-switch" title="Make Dexie documentation available offline">
+      <span id="offlineOffHeading">Make available offline</span>
+      <span id="offlineOnHeading">Available offline</span>
+      <label class="switch">
+        <input
+          id="offline-checkbox"
+          type="checkbox"
+          onchange="setOffline(event.target.checked)"
+        />
+        <span class="slider round"></span>
+      </label>
+      <script>
+        updateSwitchFromStorage();
+      </script>
+    </div>
+    
+  </div><!-- /.container-fluid -->
+</nav>		
+<script>
+    document.querySelectorAll('nav.navbar ul>li>a').forEach(function (a) {
+      var href = a.getAttribute('href');
+      href = href && href.split('#')[0];
+      if (href && location.pathname === href) {
+        //console.log("Selected: ", a.href);
+        a.closest('li').className += ' active';
+      }
+    });
+</script>
+
+    <header class="site-header">
+  <div class="jumbotron docs-page-jumbotron">
+    <div class="container">
+      <!-- <div style="position:relative; margin:0;padding:0; width: 100%;">
+        <a href="/cloud/" style="position: absolute; top: 0; right: 200px;">
+          <h1>Need Sync?</h1>
+        </a>
+      </div> -->
+      <a href="https://dexie.org/">
+        <img src="https://dexie.org/assets/images/dexie-logo-icon.svg" class="dexie-logo-icon" />
+        <h1>Dexie.js Docs</h1>
+      </a>
+      <a href="https://dexie.org/cloud/" id="cloud-promoter">
+        <div class="shoutouts">
+          <p>Need sync?</p>
+          <p>Create collaborative offline-first apps</p>
+          <p>Easy to get started</p>
+        </div>
+        <p>Coming soon: Dexie Cloud<span class="beta">BETA</span><span style="display: inline-block; margin-left: -1em;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&raquo;</span></p>
+  </a>  
+    <!-- Github star button -->
+<div id="star-button">
+  <!-- Place this tag where you want the button to render. -->
+  <a class="github-button" href="../../../github.com/dfahlander/Dexie.html" data-size="large" data-show-count="true" aria-label="Star dfahlander/Dexie.js on GitHub">Star</a>
+</div>
+<!-- Place this tag in your head or just before your close body tag. -->
+<script async defer src="../../../buttons.github.io/buttons.js"></script>
+      
+    </div>
+</div>
+</header>
+<script src="../../assets/js/anime.min.js"></script>
+<script src="../../assets/js/shoutouts.js"></script>
+
+
+    <main class="container">
+      <div class="row">
+  <div class="col-xs-12 col-md-8">
+    <div class="row docs-page-subheader">
+      <h1 class="col-xs-12 col-md-9">Design</h1>
+      <div class="hidden-xs col-md-3">
+        <a class="btn btn-primary btn-edit-doc-page" href="https://github.com/dfahlander/dexie.js-web/edit/gh-pages/docs/Tutorial/Design.md">
+          <span class="glyphicon glyphicon-edit"></span>&nbsp; Edit on GitHub
+        </a>
+      </div>
+    </div>
+
+    <div class="row docs-page-subtitle">
+      <div class="col-xs-12">
+        
+      </div>
+    </div>
+    <div class="row docs-page">
+      <div class="col-xs-12">
+        <h3 id="the-dexie-class">The Dexie class</h3>
+
+<p>Dexie is both a class and a namespace. An instance of Dexie will represent a database connection. As namespace, it is used as an export area for functions, utilities, and classes. In a simple HTML browser environment this means that including “Dexie.js” will only add one property to window: window.Dexie. If you are utilizing a module environment like commonjs or ES modules, Dexie will be the default export that you get when requiring it. Here’s an example how to use Dexie once you’ve included it:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">Dexie</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">dexie</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="c1">// Create your instance</span>
+<span class="kd">var</span> <span class="nx">db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Dexie</span><span class="p">(</span><span class="dl">"</span><span class="s2">MyDatabase</span><span class="dl">"</span><span class="p">);</span> 
+
+<span class="c1">// Define your schema</span>
+<span class="nx">db</span><span class="p">.</span><span class="nx">version</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="nx">stores</span><span class="p">({</span>
+    <span class="na">myObjectStore1</span><span class="p">:</span> <span class="dl">"</span><span class="s2">primaryKey, index1, index2, ...</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">myObjectStore2</span><span class="p">:</span> <span class="dl">"</span><span class="s2">primaryKey, index1, index2, ...</span><span class="dl">"</span><span class="p">,</span>
+    <span class="p">...</span>
+<span class="p">});</span>
+
+<span class="c1">// Open the database</span>
+<span class="nx">db</span><span class="p">.</span><span class="nx">open</span><span class="p">().</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="dl">"</span><span class="s2">Open failed: </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">e</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Dexie, as its backend indexedDB implementation, is an asynchronous database, meaning that any operation that requires a result won’t be returned directly. Instead all such operations will return a <a href="http://www.html5rocks.com/en/tutorials/es6/promises/">Promise</a>.</p>
+
+<p>Dexie also supports queuing operations, meaning you can start using the database directly after having defined it. In case open() hasn’t been called, it will open it automatically and enqueue the operation to execute as soon as the database is finished opening. If open fails, queued operations will immediately fail with the error event from the open request.</p>
+
+<p>Notice also that you don’t need to care for whether the database has been created or not. It all be created automatically first time use. You always define your schema and let the runtime decide whether to use that definition for creating the database or just for populating the table properties onto your db instance.</p>
+
+<h3 id="the-table-class">The Table Class</h3>
+
+<p><a href="../Table/Table.html">Table</a> represents an object store. On your Dexie instance you will have direct access to instances of Table for each object store you have <a href="../Version/Version-2.html">defined in your schema</a>.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Dexie</span><span class="p">(</span><span class="dl">"</span><span class="s2">FriendsAndPetsDB</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="nx">db</span><span class="p">.</span><span class="nx">version</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="nx">stores</span><span class="p">({</span>
+    <span class="na">friends</span><span class="p">:</span> <span class="dl">"</span><span class="s2">++id,name,isCloseFriend</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">pets</span><span class="p">:</span> <span class="dl">"</span><span class="s2">++id,name,kind</span><span class="dl">"</span>
+<span class="p">});</span>
+<span class="nx">db</span><span class="p">.</span><span class="nx">open</span><span class="p">();</span>
+<span class="nx">db</span><span class="p">.</span><span class="nx">friends</span><span class="p">.</span><span class="nx">add</span><span class="p">({</span><span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Ingemar Bergman</span><span class="dl">"</span><span class="p">,</span> <span class="na">isCloseFriend</span><span class="p">:</span> <span class="mi">0</span><span class="p">});</span>
+<span class="nx">db</span><span class="p">.</span><span class="nx">pets</span><span class="p">.</span><span class="nx">add</span><span class="p">({</span><span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Josephina</span><span class="dl">"</span><span class="p">,</span> <span class="na">kind</span><span class="p">:</span> <span class="dl">"</span><span class="s2">dog</span><span class="dl">"</span><span class="p">,</span> <span class="na">fur</span><span class="p">:</span> <span class="dl">"</span><span class="s2">too long right now</span><span class="dl">"</span><span class="p">});</span>
+</code></pre></div></div>
+
+<p><em>Note: <code class="language-plaintext highlighter-rouge">++id</code> (or <code class="language-plaintext highlighter-rouge">id++</code>) on the primary key means that it will be auto-incremented</em>
+<em>Note2: You only need to specify properties that you wish to index. The object store will allow any properties on your stored objects but you can only query them by indexed properties</em></p>
+
+<p>As you can see, <code class="language-plaintext highlighter-rouge">db.friends</code> and <code class="language-plaintext highlighter-rouge">db.pets</code> are instances of <a href="../Table/Table.html">Table</a> that you can operate on directly.</p>
+
+<p><a href="../Table/Table.html">Table</a> is the entry points for doing all operations to your object stores, such as querying, adding, putting, deleting, clearing and modifying your data.</p>
+
+<h3 id="transactions">Transactions</h3>
+
+<p>Whenever you are going to do more than a single operation on your database in a sequence, you would normally use a transaction. <a href="../Transaction/Transaction.html">Transaction</a> represents a full <a href="http://en.wikipedia.org/wiki/ACID">ACID</a> transaction. When working with transactions you get the following benefits:</p>
+
+<ul>
+  <li>If modifying database and any error occur, every modification will be rolled back.</li>
+  <li>You may do all write operations synchronously without the need to wait for it to finish before starting the next one.</li>
+  <li>You may catch any error event or exception of any kind in one single catch() method of the transaction, making sure no exception what so ever will make your app just stall. Even “runtime” exceptions like the use of a misspelled variable will be caught even if it happens in the <em>callback of a callback</em> of your transaction callback…</li>
+  <li>Remember that a browser can close down at any moment. Think about what would happen if the user closes the browser somewhere between your operations. Would that lead to an invalid state? If so, use a transaction - that will make its operations abort if browser is closed between operations.</li>
+</ul>
+
+<p>Here is how you enter a transaction block:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">db</span><span class="p">.</span><span class="nx">transaction</span><span class="p">(</span><span class="dl">"</span><span class="s2">rw</span><span class="dl">"</span><span class="p">,</span> <span class="nx">db</span><span class="p">.</span><span class="nx">friends</span><span class="p">,</span> <span class="nx">db</span><span class="p">.</span><span class="nx">pets</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Any database error event that occur will abort transaction and be sent to</span>
+    <span class="c1">// the catch() method below.</span>
+    <span class="c1">// The exact same rule if any exception is thrown whatsoever.</span>
+<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Log or display the error</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Notes:</p>
+<ul>
+  <li>‘friends’ and ‘pets’ are objectStores registered using the <a href="../Dexie/Dexie-38.html">version()</a> method.</li>
+  <li>Replace <code class="language-plaintext highlighter-rouge">"rw"</code> with <code class="language-plaintext highlighter-rouge">"r"</code> if you are just going to read from the stores.</li>
+  <li>Also errors occurring in nested callbacks in the block will be catched by the catch() method.</li>
+  <li>It is also possible to prohibit the transaction from being aborted by <a href="../Promise/Promise-7.html">catching</a> specific errors. (See <a href="../Transaction/Dexie.html">Dexie.transaction()</a> ).</li>
+</ul>
+
+<h4 id="transaction-lifetime">Transaction Lifetime</h4>
+
+<p>A transaction is auto-committed once you do not do anything with it. So, if you do <code class="language-plaintext highlighter-rouge">setTimeout(cb, 0)</code> anywhere, don’t expect your transaction to live when the callback comes back! The only way of keeping a transaction alive between ticks is to perform a database operation on it. Then it will live until that operation fails (catch()) or succeeds (then()). You can then do another operation to keep it alive some more time, etc. There might be situations where you would interact with other async APIs within a transaction (WebCrypto, fetch, $.ajax, etc). In that situation, it is often better to think twice if you should keep the transaction ongoing through the other async call. If you however decide that you need this, there’s a new method in Dexie v2: Dexie.waitFor() that may keep the current transaction
+alive until given Promise is fulfilled. See <a href="../Dexie/Dexie-40.html">Dexie.waitFor()</a>.</p>
+
+<p>There is no commit() method on transactions, because it is not needed since it will auto-commit if no errors occur. You can abort() it however.</p>
+
+<h3 id="database-versioning">Database Versioning</h3>
+
+<p>Thanks to the backend architecture of indexedDB, database versioning is essential when working with indexedDB. With Dexie, you get an even easier upgrading framework built upon the indexedDB framework.</p>
+
+<p>Lets say you initially have the following database schema:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Dexie</span><span class="p">(</span><span class="dl">"</span><span class="s2">FriendsDB</span><span class="dl">"</span><span class="p">);</span>
+<span class="nx">db</span><span class="p">.</span><span class="nx">version</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="nx">stores</span><span class="p">({</span><span class="na">friends</span><span class="p">:</span> <span class="dl">"</span><span class="s2">++id,name</span><span class="dl">"</span><span class="p">});</span>
+</code></pre></div></div>
+
+<p>This schema only specifies a primary key “id” that is auto-incremented, and an index on the property “name”. Your app may store other properties as well, such as <code class="language-plaintext highlighter-rouge">phone</code>, <code class="language-plaintext highlighter-rouge">email</code> etc but it will not be indexed:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">db</span><span class="p">.</span><span class="nx">friends</span><span class="p">.</span><span class="nx">put</span><span class="p">({</span>
+    <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Arnold</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">phone</span><span class="p">:</span> <span class="dl">"</span><span class="s2">123456</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">email</span><span class="p">:</span> <span class="dl">"</span><span class="s2">arnold@abc.com</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">shoeSize</span><span class="p">:</span> <span class="mi">88</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Let’s say that you publish your app and people starts using it. After a while, your user requests a new feature - to be able to search for friends with a certain shoeSize. But you have not indexed shoeSize in your schema, so how do you add that index to the next version of your app? Here’s how:</p>
+
+<p>In Dexie &gt;= 3.0:</p>
+<ul>
+  <li>Just increase the version number and add shoeSize along the indexes:
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">db</span><span class="p">.</span><span class="nx">version</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nx">stores</span><span class="p">({</span><span class="na">friends</span><span class="p">:</span> <span class="dl">"</span><span class="s2">++id,name,shoeSize</span><span class="dl">"</span><span class="p">});</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p>In Dexie &lt; 3.0:</p>
+<ol>
+  <li>Keep the line <code class="language-plaintext highlighter-rouge">db.version(1).stores({friends: "++id,name"});</code> - <strong>Never touch it as long as there are users out there with that version running!</strong></li>
+  <li>Instead, add a new line to your code: <code class="language-plaintext highlighter-rouge">db.version(2).stores({friends: "++id,name,shoeSize"});</code>.</li>
+</ol>
+
+<p>Voila, that’s it. Your code can now do stuff like db.friends.where(‘shoeSize’).between(37,39), which would fail in version 1.</p>
+
+<p>OK, that’s nice. But what if you’d need to change the <strong>data architecture</strong>? Let’s say you want to split <code class="language-plaintext highlighter-rouge">name</code> into <code class="language-plaintext highlighter-rouge">firstName</code> and <code class="language-plaintext highlighter-rouge">lastName</code> and index those separate. Here’s how you do it. (This time I present the entire code containing all versions, so you can see it in it’s whole):</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Dexie</span><span class="p">(</span><span class="dl">"</span><span class="s2">FriendsDB</span><span class="dl">"</span><span class="p">);</span>
+<span class="nx">db</span><span class="p">.</span><span class="nx">version</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="nx">stores</span><span class="p">({</span><span class="na">friends</span><span class="p">:</span> <span class="dl">"</span><span class="s2">++id,name</span><span class="dl">"</span><span class="p">});</span>
+<span class="nx">db</span><span class="p">.</span><span class="nx">version</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nx">stores</span><span class="p">({</span><span class="na">friends</span><span class="p">:</span> <span class="dl">"</span><span class="s2">++id,name,shoeSize</span><span class="dl">"</span><span class="p">});</span>
+<span class="nx">db</span><span class="p">.</span><span class="nx">version</span><span class="p">(</span><span class="mi">3</span><span class="p">).</span><span class="nx">stores</span><span class="p">({</span><span class="na">friends</span><span class="p">:</span> <span class="dl">"</span><span class="s2">++id,shoeSize,firstName,lastName</span><span class="dl">"</span><span class="p">}).</span><span class="nx">upgrade</span><span class="p">(</span><span class="nx">tx</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// An upgrade function for version 3 will upgrade data based on version 2.</span>
+    <span class="k">return</span> <span class="nx">tx</span><span class="p">.</span><span class="nx">table</span><span class="p">(</span><span class="dl">"</span><span class="s2">friends</span><span class="dl">"</span><span class="p">).</span><span class="nx">toCollection</span><span class="p">().</span><span class="nx">modify</span><span class="p">(</span><span class="nx">friend</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="c1">// Modify each friend:</span>
+        <span class="nx">friend</span><span class="p">.</span><span class="nx">firstName</span> <span class="o">=</span> <span class="nx">friend</span><span class="p">.</span><span class="nx">name</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="dl">'</span><span class="s1"> </span><span class="dl">'</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+        <span class="nx">friend</span><span class="p">.</span><span class="nx">lastName</span> <span class="o">=</span> <span class="nx">friend</span><span class="p">.</span><span class="nx">name</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="dl">'</span><span class="s1"> </span><span class="dl">'</span><span class="p">)[</span><span class="mi">1</span><span class="p">];</span>
+        <span class="k">delete</span> <span class="nx">friend</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>That’s it. Your data will automatically upgrade for existing users. A version with an upgrader attached must never be altered. Further changes to the schema should be done by adding a new version declaration before or after the existing one (order doesn’t matter). This holds true for both Dexie 3.0 and older versions.</p>
+
+<p>So what are the rules to be aware of?</p>
+
+<ul>
+  <li>Dexie &lt;3: Keep old versions as long as there are code out there with them installed.</li>
+  <li>Dexie &gt;=3: You only need to keep versions that have an upgrader as long as there are code out there that use a version lower than the upgrader-attached version.</li>
+  <li>Create/drop/alter indexes or tables by adding a new <code class="language-plaintext highlighter-rouge">version(x)</code> with an updated <code class="language-plaintext highlighter-rouge">stores({...})</code> spec. If you are on Dexie &gt;=3 you can just increase the version number of existing declaration and modify the tables and indexes of it.</li>
+  <li>Tables are not deleted unless you specify <code class="language-plaintext highlighter-rouge">null</code> as the stores-specification for that table in a new version.</li>
+  <li>New versions need only to specify changed tables.</li>
+</ul>
+
+<p>Important to notice is that in case you got 50 tables and just need to add an index on one of them, you don’t need to repeat all tables again in the new version-spec. Just specify an updated version of the table you need to alter. Indexes work differently though - they are dropped as soon as you don’t specify them in a new versions.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">db</span><span class="p">.</span><span class="nx">version</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="nx">stores</span><span class="p">({</span>
+    <span class="na">foo1</span><span class="p">:</span> <span class="dl">'</span><span class="s1">id,x,y,z</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">foo2</span><span class="p">:</span> <span class="dl">'</span><span class="s1">id,x,y,z</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">foo3</span><span class="p">:</span> <span class="dl">'</span><span class="s1">id,x,y,z</span><span class="dl">'</span>
+<span class="p">});</span>
+<span class="c1">// Delete index 'y' on 'foo1':</span>
+<span class="nx">db</span><span class="p">.</span><span class="nx">version</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nx">stores</span><span class="p">({</span>
+    <span class="na">foo1</span><span class="p">:</span> <span class="dl">'</span><span class="s1">id,x,z</span><span class="dl">'</span>
+<span class="p">});</span>
+<span class="c1">// Add index 'x2' on 'foo2':</span>
+<span class="nx">db</span><span class="p">.</span><span class="nx">version</span><span class="p">(</span><span class="mi">3</span><span class="p">).</span><span class="nx">stores</span><span class="p">({</span>
+    <span class="na">foo2</span><span class="p">:</span> <span class="dl">'</span><span class="s1">id, x, x2, y, z</span><span class="dl">'</span>
+<span class="p">});</span>
+<span class="c1">// Drop table 'foo3':</span>
+<span class="nx">db</span><span class="p">.</span><span class="nx">version</span><span class="p">(</span><span class="mi">4</span><span class="p">).</span><span class="nx">stores</span><span class="p">({</span><span class="na">foo3</span><span class="p">:</span> <span class="kc">null</span><span class="p">});</span>
+</code></pre></div></div>
+
+<p>The order of provided versions is not crucial. You may begin with the last version if you like. Dexie will sort the versions before opening the db and regard the max version provided as the target version.</p>
+
+<p>Description of the open / upgrade sequence:</p>
+
+<ol>
+  <li>User code calls db.open();</li>
+  <li>If database is not present, or an earlier version was present, indexedDB’s <code class="language-plaintext highlighter-rouge">onupgradeneeded</code> event is fired and taken care of by Dexie.</li>
+  <li>Dexie inspects what version is currently used. If no database present, Dexie initializes the last version directly by parsing the stores schema syntax and adding stores and indexes accordingly. No upgrade() functions run in this case.</li>
+  <li>If a previous version is installed, Dexie will filter out the diff between each version and add/remove stores and indexes sequentially. So also with any registered upgrader function. A new feature in Dexie 3 is that it relies on the installed schema rather than the declared, so the diff will be computed between the actual installed schema and the next version rather than the declared schema of the current version and next version. This means two things: First of all that if the declaration of current schema is not in sync with the actual, it does not matter. Second, that Dexie can open a new version from on a device with an old version installed also when the old version is not present in the declaration.</li>
+</ol>
+
+<p>Error handling: If any error occur in any upgrade function in the sequence, the upgrade transaction will roll back and db.open() will fail. This means that data will under no circumstances be left half-upgraded.</p>
+
+<h3 id="change-tracking">Change Tracking</h3>
+
+<p>With Dexie it’s possible to control and monitor each database change. No matter which method is being used for data manipulation, Dexie may tell whether a CREATE, UPDATE or DELETE is about to happen and offer the hook callbacks to manipulate the change if requested. It is also possible to hook into READ operations; to provide a proxy function that will be called whenever an object has been read from database and is about to be delivered to caller.</p>
+
+<h4 id="the-crud-hooks-create-read-update-delete">The CRUD Hooks (<a href="../Table/Table-14.html">CREATE</a>, <a href="../Table/Table-16.html">READ</a>, <a href="../Table/Table-17.html">UPDATE</a>, <a href="../Table/Table-15.html">DELETE</a>)</h4>
+
+<p>CRUD hooks that enables application code or addons to get involved in any of the CRUD operations taking place underhood. Whenever database is about to be read from or modified, they allow hook implementation to modify what will happen, or just react on the event.</p>
+
+<p>The CRUD hooks could be quite powerful. It is possible to write Dexie addons that performs synchronization, observation, custom advanced indexes, foreignKey implementations, views etc.</p>
+
+<h4 id="hooks-documentation">Hooks Documentation</h4>
+<ul>
+  <li><a href="../Table/Table-14.html">hook(‘creating’)</a></li>
+  <li><a href="../Table/Table-16.html">hook(‘reading’)</a></li>
+  <li><a href="../Table/Table-17.html">hook(‘updating’)</a></li>
+  <li><a href="../Table/Table-15.html">hook(‘deleting’)</a></li>
+</ul>
+
+<h3 id="the-populate-event">The <a href="../Dexie/Dexie.on-3.html">populate</a> Event</h3>
+
+<p>In case your database need initial data in order to work - data that must only be populated on database creation and never more, you can subscribe to the populate event. This will only be called in case the database is initially created - not when it is upgraded.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Dexie</span><span class="p">(</span><span class="dl">"</span><span class="s2">MyTicketDB</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="nx">db</span><span class="p">.</span><span class="nx">version</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="nx">stores</span><span class="p">({</span>
+    <span class="na">tickets</span><span class="p">:</span> <span class="dl">"</span><span class="s2">++id,headline,description,statusId</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">statuses</span><span class="p">:</span> <span class="dl">"</span><span class="s2">++id,name,openess</span><span class="dl">"</span>
+<span class="p">});</span>
+
+<span class="nx">db</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">"</span><span class="s2">populate</span><span class="dl">"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Init your DB with some default statuses:</span>
+    <span class="nx">db</span><span class="p">.</span><span class="nx">statuses</span><span class="p">.</span><span class="nx">add</span><span class="p">({</span><span class="na">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">opened</span><span class="dl">"</span><span class="p">,</span> <span class="na">openess</span><span class="p">:</span> <span class="kc">true</span><span class="p">});</span>
+    <span class="nx">db</span><span class="p">.</span><span class="nx">statuses</span><span class="p">.</span><span class="nx">add</span><span class="p">({</span><span class="na">id</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">closed</span><span class="dl">"</span><span class="p">,</span> <span class="na">openess</span><span class="p">:</span> <span class="kc">false</span><span class="p">});</span>
+    <span class="nx">db</span><span class="p">.</span><span class="nx">statuses</span><span class="p">.</span><span class="nx">add</span><span class="p">({</span><span class="na">id</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">resolved</span><span class="dl">"</span><span class="p">,</span> <span class="na">openess</span><span class="p">:</span> <span class="kc">false</span><span class="p">});</span>
+    <span class="nx">db</span><span class="p">.</span><span class="nx">statuses</span><span class="p">.</span><span class="nx">add</span><span class="p">({</span><span class="na">id</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">wontfix</span><span class="dl">"</span><span class="p">,</span> <span class="na">openess</span><span class="p">:</span> <span class="kc">false</span><span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Here’s also an example of how to populate data from an ajax call: <a href="../Dexie/Dexie.on-3.html#ajax-populate-sample">Ajax Populate Sample</a></p>
+
+<h3 id="promises">Promises</h3>
+
+<p>Dexie comes with its own implementation of <a href="../Promise/Promise.html">Promise</a> based on <a href="https://github.com/taylorhakes/promise-light">promise-light</a> by <a href="https://github.com/taylorhakes">Taylor Hakes</a> that is Promise/A+ and ECMAScript 6 compliant. A Promise has a then() method which is called when operation completes or fails. The first argument to the then() method is the <code class="language-plaintext highlighter-rouge">complete</code> callback and the second is the <code class="language-plaintext highlighter-rouge">fail</code> callback. In ECMAScript 6, a catch() method is added as a shortcut for then(null, fn) - catching failures - this makes it possible to utilize then() as a success-method only and catch() as an error method only, making your code more readable. Dexie’s implementation of Promise also has a finally() method that is called whether or not the operation fails or completes. All asynchronous methods in Dexie returns a Promise instance and this makes the API way more easy to use and makes error handling more robust.</p>
+
+<p>How to use Promise line by line:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">arrayPromise</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">friends</span><span class="p">.</span><span class="nx">where</span><span class="p">(</span><span class="dl">'</span><span class="s1">name</span><span class="dl">'</span><span class="p">).</span><span class="nx">startsWithIgnoreCase</span><span class="p">(</span><span class="dl">'</span><span class="s1">arnold</span><span class="dl">'</span><span class="p">).</span><span class="nx">toArray</span><span class="p">();</span>
+<span class="nx">arrayPromise</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span> <span class="p">});</span>
+<span class="nx">arrayPromise</span><span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span> <span class="p">});</span>
+</code></pre></div></div>
+
+<p>But Dexie gives you a little shortcut in all methods returning a promise with a value, so the above code will be equal to:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">db</span><span class="p">.</span><span class="nx">friends</span><span class="p">.</span><span class="nx">where</span><span class="p">(</span><span class="dl">'</span><span class="s1">name</span><span class="dl">'</span><span class="p">).</span><span class="nx">startsWithIgnoreCase</span><span class="p">(</span><span class="dl">'</span><span class="s1">arnold</span><span class="dl">'</span><span class="p">).</span><span class="nx">toArray</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span>
+<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>_Note: Promises are returned from all methods in Dexie that perform asynchronous work. Also, most methods that has a value result, such as <code class="language-plaintext highlighter-rouge">toArray()</code>, also provide a shortcut for <code class="language-plaintext highlighter-rouge">then()</code> - you can pass in your callback directly to the method instead of calling then():
+_</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">db</span><span class="p">.</span><span class="nx">friends</span><span class="p">.</span><span class="nx">toArray</span><span class="p">().</span><span class="nx">then</span> <span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">result</span><span class="p">)</span> <span class="p">{});</span>
+</code></pre></div></div>
+
+<p>is equivalent to:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">db</span><span class="p">.</span><span class="nx">friends</span><span class="p">.</span><span class="nx">toArray</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">result</span><span class="p">)</span> <span class="p">{});</span>
+</code></pre></div></div>
+
+<h3 id="catching-certain-exception-classes">Catching Certain Exception Classes</h3>
+
+<p>With Dexie’s implementation of Promise.catch() enables you to catch certain exception classes as you would do on java or C#:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">db</span><span class="p">.</span><span class="nx">friends</span><span class="p">.</span><span class="nx">where</span><span class="p">(</span><span class="dl">'</span><span class="s1">name</span><span class="dl">'</span><span class="p">).</span><span class="nx">startsWithIgnoreCase</span><span class="p">(</span><span class="dl">'</span><span class="s1">arnold</span><span class="dl">'</span><span class="p">).</span><span class="nx">toArray</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span>
+<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="nx">DOMError</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="dl">"</span><span class="s2">DOMError occurred: </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">err</span><span class="p">);</span>
+<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="nx">TypeError</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="dl">"</span><span class="s2">TypeError occurred: </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">err</span><span class="p">);</span>
+<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="dl">"</span><span class="s2">Unknown error occurred: </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">err</span><span class="p">);</span>
+<span class="p">}).</span><span class="k">finally</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Finally the query succeeded or failed.</span><span class="dl">"</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h5 id="more-about-promises">More about Promises</h5>
+
+<ul>
+  <li><a href="http://www.html5rocks.com/en/tutorials/es6/promises/">http://www.html5rocks.com/en/tutorials/es6/promises/</a></li>
+  <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise</a></li>
+  <li><a href="http://promises-aplus.github.io/promises-spec/">http://promises-aplus.github.io/promises-spec/</a></li>
+</ul>
+
+<h3 id="whereclause">WhereClause</h3>
+
+<p>You can retrieve objects from you <a href="../Table/Table.html">Table</a> instances using two methods:</p>
+
+<ul>
+  <li><a href="../Table/Table-13.html">Table.get()</a> - retrieve an object by its primary key.</li>
+  <li><a href="../Table/Table-29.html">Table.where()</a> - do an advanced query.</li>
+</ul>
+
+<p>Example of a get() query:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">db</span><span class="p">.</span><span class="nx">friends</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">friend</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Friend number 2: </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">friend</span><span class="p">));</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Example of a simple where() query:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">db</span><span class="p">.</span><span class="nx">friends</span><span class="p">.</span><span class="nx">where</span><span class="p">(</span><span class="dl">'</span><span class="s1">shoeSize</span><span class="dl">'</span><span class="p">).</span><span class="nx">above</span><span class="p">(</span><span class="mi">37</span><span class="p">).</span><span class="nx">count</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">count</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">I have </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">count</span> <span class="o">+</span> <span class="dl">"</span><span class="s2"> friends with shoesize above 37!</span><span class="dl">"</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Example of an advanced where() query:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">db</span><span class="p">.</span><span class="nx">friends</span><span class="p">.</span><span class="nx">where</span><span class="p">(</span><span class="dl">'</span><span class="s1">shoeSize</span><span class="dl">'</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">between</span><span class="p">(</span><span class="mi">37</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">or</span><span class="p">(</span><span class="dl">'</span><span class="s1">name</span><span class="dl">'</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">anyOf</span><span class="p">([</span><span class="dl">'</span><span class="s1">Arnold</span><span class="dl">'</span><span class="p">,</span><span class="dl">'</span><span class="s1">Ingemar</span><span class="dl">'</span><span class="p">])</span>
+    <span class="p">.</span><span class="nx">and</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">friend</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">friend</span><span class="p">.</span><span class="nx">isCloseFriend</span><span class="p">;</span> <span class="p">})</span>
+    <span class="p">.</span><span class="nx">limit</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">friend</span><span class="p">){</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">friend</span><span class="p">));</span>
+    <span class="p">});</span>
+</code></pre></div></div>
+
+<h3 id="and-and-or"><a href="../Collection/Collection-2.html">AND</a> and <a href="../Collection/Collection-19.html">OR</a></h3>
+
+<p>Native indexedDB has no support for logical AND or OR operations. Dexie implements this in two different manner, which makes sense for their different purposes in regard to performance. Dexie implements logical OR by executing two different requests simultaneously and act on the union of these request (more about this in <a href="http://www.codeproject.com/Articles/744986/How-to-do-some-magic-with-indexedDB">this article</a> ).</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">or()</code> method takes a string argument and then works the same as <code class="language-plaintext highlighter-rouge">where()</code>, whereas the <code class="language-plaintext highlighter-rouge">and()</code> method takes a function argument (a filter) and filters the results in an iteration sequence.</p>
+
+<p>So why is and() and or() implemented differently? The reason is that:</p>
+
+<ul>
+  <li>Logical OR <em>cannot</em> be done by filtering - we must query the database with two queries to get it.</li>
+  <li>We would gain no performance by letting the database handle Logical AND (launching two separate queries and the filter away entries that don’t exist in both collections). The best pick for AND is undoubtedly a plain javascript filter. It also makes it obvious for the caller that it is important to pick a good index in the <code class="language-plaintext highlighter-rouge">where()</code> method and filter out the rest in the <code class="language-plaintext highlighter-rouge">and()</code> filter.</li>
+</ul>
+
+<h3 id="back-to-tutorial"><a href="index.html">Back to Tutorial</a></h3>
+
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-12 col-md-4">
+    <div class="row docs-page-subheader">
+      <h3>Table of Contents</h3>
+      <div class="docs-toc-wrapper">
+        <ul class="docs-toc">
+          
+          
+            
+          
+            
+          
+            
+          
+            
+              <li>
+                <a href="../API-Reference.html">API Reference</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="https://dexie.org/cloud/docs/access-control">Access Control in Dexie Cloud</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="https://dexie.org/cloud/docs/authentication">Authentication in Dexie Cloud</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="Best-Practices.html">Best Practices</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="Building-Addons.html">Building Addons</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Collection/Collection.html">Collection</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Collection/Collection-2.html">Collection.and()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Collection/Collection-3.html">Collection.clone()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Collection/Collection-4.html">Collection.count()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Collection/Collection-5.html">Collection.delete()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Collection/Collection-6.html">Collection.desc()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Collection/Collection-7.html">Collection.distinct()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Collection/Collection-8.html">Collection.each()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Collection/Collection-9.html">Collection.eachKey()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Collection/Collection-10.html">Collection.eachPrimaryKey()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Collection/Collection-11.html">Collection.eachUniqueKey()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Collection/Collection-12.html">Collection.filter()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Collection/Collection-13.html">Collection.first()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Collection/Collection-14.html">Collection.keys()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Collection/Collection-15.html">Collection.last()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Collection/Collection-16.html">Collection.limit()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Collection/Collection-17.html">Collection.modify()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Collection/Collection-18.html">Collection.offset()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Collection/Collection-19.html">Collection.or()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Collection/Collection-20.html">Collection.primaryKeys()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Collection/Collection-21.html">Collection.raw()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Collection/Collection-22.html">Collection.reverse()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Collection/Collection-23.html">Collection.sortBy()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Collection/Collection-24.html">Collection.toArray()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Collection/Collection-25.html">Collection.uniqueKeys()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Collection/Collection-26.html">Collection.until()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Compound-Index.html">Compound Index</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="Consuming-dexie-as-a-module.html">Consuming Dexie as a module</a>
+              </li>
+            
+          
+            
+          
+            
+              <li>
+                <a href="../DBCore/DBCore.html">DBCore</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DBCore/DBCoreAddRequest.html">DBCoreAddRequest</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DBCore/DBCoreCountRequest.html">DBCoreCountRequest</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DBCore/DBCoreCursor.html">DBCoreCursor</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DBCore/DBCoreDeleteRangeRequest.html">DBCoreDeleteRangeRequest</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DBCore/DBCoreDeleteRequest.html">DBCoreDeleteRequest</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DBCore/DBCoreGetManyRequest.html">DBCoreGetManyRequest</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DBCore/DBCoreGetRequest.html">DBCoreGetRequest</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DBCore/DBCoreIndex.html">DBCoreIndex</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DBCore/DBCoreKeyRange.html">DBCoreKeyRange</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DBCore/DBCoreMutateRequest.html">DBCoreMutateRequest</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DBCore/DBCoreMutateResponse.html">DBCoreMutateResponse</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DBCore/DBCoreOpenCursorRequest.html">DBCoreOpenCursorRequest</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DBCore/DBCorePutRequest.html">DBCorePutRequest</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DBCore/DBCoreQuery.html">DBCoreQuery</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DBCore/DBCoreQueryRequest.html">DBCoreQueryRequest</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DBCore/DBCoreQueryResponse.html">DBCoreQueryResponse</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DBCore/DBCoreRangeType.html">DBCoreRangeType</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DBCore/DBCoreSchema.html">DBCoreSchema</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DBCore/DBCoreTable.html">DBCoreTable</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DBCore/DBCoreTableSchema.html">DBCoreTableSchema</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DBCore/DBCoreTransaction.html">DBCoreTransaction</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DBCore/DBCoreTransactionMode.html">DBCoreTransactionMode</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DBCore/DBCoreTransactionRequest.html">DBCoreTransactionRequest</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Deprecations.html">Deprecations</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DerivedWork.html">Derived Work</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="Design.html">Design</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Dexie/Dexie.html">Dexie</a>
+              </li>
+            
+          
+            
+          
+            
+              <li>
+                <a href="https://dexie.org/cloud/docs/cli">Dexie Cloud CLI</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="https://dexie.org/cloud/docs/">Dexie Cloud Docs</a>
+              </li>
+            
+          
+            
+          
+            
+              <li>
+                <a href="https://dexie.org/cloud/docs/rest-api">Dexie Cloud REST API</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DexieErrors/Dexie.html">Dexie.AbortError</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DexieErrors/Dexie-2.html">Dexie.BulkError</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DexieErrors/Dexie-3.html">Dexie.ConstraintError</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DexieErrors/Dexie-4.html">Dexie.DataCloneError</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DexieErrors/Dexie-5.html">Dexie.DataError</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DexieErrors/Dexie-6.html">Dexie.DatabaseClosedError</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DexieErrors/Dexie-7.html">Dexie.IncompatiblePromiseError</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DexieErrors/Dexie-8.html">Dexie.InternalError</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DexieErrors/Dexie-9.html">Dexie.InvalidAccessError</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DexieErrors/Dexie-10.html">Dexie.InvalidArgumentError</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DexieErrors/Dexie-11.html">Dexie.InvalidStateError</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DexieErrors/Dexie-12.html">Dexie.InvalidTableError</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DexieErrors/Dexie-13.html">Dexie.MissingAPIError</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DexieErrors/Dexie-14.html">Dexie.ModifyError</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DexieErrors/Dexie-15.html">Dexie.NoSuchDatabaseErrorError</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DexieErrors/Dexie-16.html">Dexie.NotFoundError</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Observable/Dexie.html">Dexie.Observable</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Observable/Dexie.Observable.html">Dexie.Observable.DatabaseChange</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DexieErrors/Dexie-17.html">Dexie.OpenFailedError</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DexieErrors/Dexie-18.html">Dexie.PrematureCommitError</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DexieErrors/Dexie-19.html">Dexie.QuotaExceededError</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DexieErrors/Dexie-20.html">Dexie.ReadOnlyError</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DexieErrors/Dexie-21.html">Dexie.SchemaError</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DexieErrors/Dexie-22.html">Dexie.SubTransactionError</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Syncable/Dexie.Syncable.html">Dexie.Syncable</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Syncable/Dexie.Syncable-2.html">Dexie.Syncable.IDatabaseChange</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Syncable/Dexie.Syncable-3.html">Dexie.Syncable.IPersistentContext</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Syncable/Dexie.Syncable-4.html">Dexie.Syncable.ISyncProtocol</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Syncable/Dexie.Syncable-5.html">Dexie.Syncable.StatusTexts</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Syncable/Dexie.Syncable-6.html">Dexie.Syncable.Statuses</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Syncable/Dexie.Syncable-7.html">Dexie.Syncable.registerSyncProtocol()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DexieErrors/Dexie-23.html">Dexie.TimeoutError</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DexieErrors/Dexie-24.html">Dexie.TransactionInactiveError</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DexieErrors/Dexie-25.html">Dexie.UnknownError</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DexieErrors/Dexie-26.html">Dexie.UnsupportedError</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DexieErrors/Dexie-27.html">Dexie.UpgradeError()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DexieErrors/Dexie-28.html">Dexie.VersionChangeError</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DexieErrors/Dexie-29.html">Dexie.VersionError</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Dexie/Dexie-2.html">Dexie.[table]</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Dexie/Dexie-3.html">Dexie.addons</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Dexie/Dexie-4.html">Dexie.async()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Dexie/Dexie-5.html">Dexie.backendDB()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Dexie/Dexie-6.html">Dexie.close()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Dexie/Dexie-7.html">Dexie.currentTransaction</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Dexie/Dexie-8.html">Dexie.debug</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Dexie/Dexie-9.html">Dexie.deepClone()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Dexie/Dexie-10.html">Dexie.defineClass()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Dexie/Dexie-11.html">Dexie.delByKeyPath()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Dexie/Dexie-12.html">Dexie.delete()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Dexie/Dexie-13.html">Dexie.derive()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Dexie/Dexie-14.html">Dexie.events()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Dexie/Dexie-15.html">Dexie.exists()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Dexie/Dexie-16.html">Dexie.extend()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Dexie/Dexie-17.html">Dexie.fakeAutoComplete()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Dexie/Dexie-18.html">Dexie.getByKeyPath()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Dexie/Dexie-19.html">Dexie.getDatabaseNames()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Dexie/Dexie-20.html">Dexie.hasFailed()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Dexie/Dexie-21.html">Dexie.ignoreTransaction()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Dexie/Dexie-22.html">Dexie.isOpen()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Dexie.html">Dexie.js</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Dexie/Dexie-23.html">Dexie.name</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Dexie/Dexie-24.html">Dexie.on()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Dexie/Dexie.on.html">Dexie.on.blocked</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Dexie/Dexie.on-2.html">Dexie.on.error</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Dexie/Dexie.on-3.html">Dexie.on.populate</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Dexie/Dexie.on-4.html">Dexie.on.populate-(old-version)</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Dexie/Dexie.on-5.html">Dexie.on.ready</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Dexie/Dexie.on-6.html">Dexie.on.versionchange</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Dexie/Dexie-25.html">Dexie.open()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Dexie/Dexie-26.html">Dexie.override()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Dexie/Dexie-27.html">Dexie.semVer</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Dexie/Dexie-28.html">Dexie.setByKeyPath()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Dexie/Dexie-29.html">Dexie.shallowClone()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Dexie/Dexie-30.html">Dexie.spawn()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Dexie/Dexie-31.html">Dexie.table()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Dexie/Dexie-32.html">Dexie.tables</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Dexie/Dexie-33.html">Dexie.transaction()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Dexie/Dexie-34.html">Dexie.transaction()-(old-version)</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Dexie/Dexie-35.html">Dexie.use()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Dexie/Dexie-36.html">Dexie.verno</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Dexie/Dexie-37.html">Dexie.version</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Dexie/Dexie-38.html">Dexie.version()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Dexie/Dexie-39.html">Dexie.vip()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Dexie/Dexie-40.html">Dexie.waitFor()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../DexieErrors/DexieError.html">DexieError</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../index.html">Docs Home</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Download.html">Download</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../ExportImport/dexie-export-import.html">Export and Import Database</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="Getting-started.html">Getting Started</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="Hello-World.html">Hello World</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../StorageManager.html">How To Use the StorageManager API</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../inbound.html">Inbound</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../IndexSpec.html">IndexSpec</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Indexable-Type.html">Indexable Type</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../IndexedDB-on-Safari.html">IndexedDB on Safari</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="Migrating-existing-DB-to-Dexie.html">Migrating existing DB to Dexie</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../MultiEntry-Index.html">MultiEntry Index</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Promise/Promise.html">Promise</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Promise/Promise-2.html">Promise.PSD</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Promise/Promise-3.html">Promise.catch()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Promise/Promise-4.html">Promise.finally()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Promise/Promise.on.html">Promise.on.error</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Promise/Promise-5.html">Promise.onuncatched</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="https://dexie.org/cloud/purchase/production">Purchase Subscription</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Questions-and-Answers.html">Questions and Answers</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Releasing-Dexie.html">Releasing Dexie</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="https://dexie.org/cloud/docs/premium-software">Run Dexie Cloud on Own Servers</a>
+              </li>
+            
+          
+            
+          
+            
+              <li>
+                <a href="../Samples.html">Samples</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="https://dexie.org/cloud/docs/scaling">Sharding and Scalability</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Simplify-with-yield.html">Simplify with yield</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Table/Table.html">Table</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../TableSchema.html">Table Schema</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Table/Table-2.html">Table.add()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Table/Table-3.html">Table.bulkAdd()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Table/Table-4.html">Table.bulkDelete()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Table/Table-5.html">Table.bulkGet()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Table/Table-6.html">Table.bulkPut()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Table/Table-7.html">Table.clear()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Table/Table-8.html">Table.count()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Table/Table-9.html">Table.defineClass()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Table/Table-10.html">Table.delete()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Table/Table-11.html">Table.each()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Table/Table-12.html">Table.filter()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Table/Table-13.html">Table.get()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Table/Table-14.html">Table.hook('creating')</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Table/Table-15.html">Table.hook('deleting')</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Table/Table-16.html">Table.hook('reading')</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Table/Table-17.html">Table.hook('updating')</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Table/Table-18.html">Table.limit()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Table/Table-19.html">Table.mapToClass()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Table/Table-20.html">Table.name</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Table/Table-21.html">Table.offset()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Table/Table-22.html">Table.orderBy()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Table/Table-23.html">Table.put()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Table/Table-24.html">Table.reverse()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Table/Table-25.html">Table.schema</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Table/Table-26.html">Table.toArray()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Table/Table-27.html">Table.toCollection()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Table/Table-28.html">Table.update()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Table/Table-29.html">Table.where()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../The-Three-Main-Limitations-of-IndexedDB.html">The three main limitations of IndexedDB</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Transaction/Transaction.html">Transaction</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Transaction/Transaction-2.html">Transaction.abort()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Transaction/Transaction.on.html">Transaction.on.abort</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Transaction/Transaction.on-2.html">Transaction.on.complete</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Transaction/Transaction.on-3.html">Transaction.on.error</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Transaction/Transaction-3.html">Transaction.table()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="index.html">Tutorial</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Typescript.html">Typescript</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="Understanding-the-basics.html">Understanding the basics</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Version/Version.html">Version</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Version/Version-2.html">Version.stores()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Version/Version-3.html">Version.upgrade()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../WhereClause/WhereClause.html">WhereClause</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../WhereClause/WhereClause-2.html">WhereClause.above()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../WhereClause/WhereClause-3.html">WhereClause.aboveOrEqual()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../WhereClause/WhereClause-4.html">WhereClause.anyOf()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../WhereClause/WhereClause-5.html">WhereClause.anyOfIgnoreCase()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../WhereClause/WhereClause-6.html">WhereClause.below()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../WhereClause/WhereClause-7.html">WhereClause.belowOrEqual()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../WhereClause/WhereClause-8.html">WhereClause.between()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../WhereClause/WhereClause-9.html">WhereClause.equals()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../WhereClause/WhereClause-10.html">WhereClause.equalsIgnoreCase()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../WhereClause/WhereClause-11.html">WhereClause.inAnyRange()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../WhereClause/WhereClause-12.html">WhereClause.noneOf()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../WhereClause/WhereClause-13.html">WhereClause.notEqual()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../WhereClause/WhereClause-14.html">WhereClause.startsWith()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../WhereClause/WhereClause-15.html">WhereClause.startsWithAnyOf()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../WhereClause/WhereClause-16.html">WhereClause.startsWithAnyOfIgnoreCase()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../WhereClause/WhereClause-17.html">WhereClause.startsWithIgnoreCase()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="https://dexie.org/cloud/docs/db.cloud.configure()">db.cloud.configure()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Syncable/db.syncable.html">db.syncable.connect()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Syncable/db.syncable-2.html">db.syncable.delete()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Syncable/db.syncable-3.html">db.syncable.disconnect()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Syncable/db.syncable-4.html">db.syncable.getOptions()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Syncable/db.syncable-5.html">db.syncable.getStatus()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Syncable/db.syncable-6.html">db.syncable.list()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Syncable/db.syncable-7.html">db.syncable.on('statusChanged')</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Syncable/db.syncable-8.html">db.syncable.setFilter()</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="https://dexie.org/cloud/docs/dexie-cloud-addon">dexie-cloud-addon</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../libs/dexie-react-hooks.html">dexie-react-hooks</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../Promise/unhandledrejection-event.html">unhandledrejection-event</a>
+              </li>
+            
+          
+            
+              <li>
+                <a href="../dexie-react-hooks/useLiveQuery().html">useLiveQuery()</a>
+              </li>
+            
+          
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+    </main>
+
+    <footer class="container">
+  <p>Dexie.js - A Minimalistic Wrapper for IndexedDB</p>
+  <p>&copy; 2014-2020 Dexie.js is the creation of David Fahlander.</p>
+</footer>
+
+
+    <script src='../../assets/js/prism-2020.js'></script>
+		<script src='../../assets/js/jquery.min.js'></script>
+		<script src='../../assets/js/bootstrap.min.js'></script>
+
+    <script>
+  if (/disableAnalytics/i.test(location.search)) {
+    var expiration_date = new Date();
+    expiration_date.setYear (expiration_date.getFullYear () + 1);
+    expiration_date = expiration_date.toGMTString();
+    document.cookie = "ignoreGA=1; expires=" + expiration_date + "; domain=dexie.org";
+  }
+  if (!/ignoreGA\=1/.test(document.cookie) && !/localhost/.test(location.host)) {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','../../../www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-7780680-5', 'auto');
+    ga('send', 'pageview');
+  }
+</script>
+
+
+    <!-- Include dexie for people wanting to open devtools to laborate -->
+    <script async src='https://unpkg.com/dexie'></script>
+    
+    <!-- Highlight anchors the same way as github wiki works -->
+    <script defer src="../../assets/js/highlight-anchors.js"></script>
+    
+  </body>
+
+
+<!-- Mirrored from dexie.org/docs/Tutorial/Design by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 07 Mar 2021 15:39:35 GMT -->
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+
+  
+<!-- Mirrored from dexie.org/docs/safari-issues by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 07 Mar 2021 15:41:07 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Safari-related issues</title>
+  <meta name="description" content="The easiest way to use IndexedDB. A lightweight, minimalistic wrapper that provides a straightforward API for developers using IndexedDB.">
+
+  <link href='https://dexie.org/assets/css/bootstrap.min.css' rel='stylesheet'>
+  <link href='https://dexie.org/assets/css/prism-ghcolors.css' rel='stylesheet'>
+  <link href='https://dexie.org/assets/css/stylesheet.css' rel='stylesheet'>
+  <link href="https://dexie.org/assets/css/docs.css" rel="stylesheet">
+  <link href="https://dexie.org/assets/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="shortcut icon" href="https://dexie.org/assets/images/favicon-yuri.png" />
+  <script src="https://dexie.org/assets/js/offline-switch.js"></script>
+</head>
+
+
+  <body>
+		<nav class="navbar navbar-default" style="z-index: 10;">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <!-- <a class="navbar-brand" href="/" style="background-image: url('/assets/images/dexie-logo-icon-menu-dark-bkgimg.svg'); background-repeat: no-repeat; background-position: 7px 8px;">Dexie.js</a> -->
+      <a class="navbar-brand" href="https://dexie.org/"><img src="https://dexie.org/assets/images/dexie-logo-icon-menu-dark-img.svg" class="dexie-logo-icon-menu" />Dexie.js</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="https://dexie.org/cloud/"><img src="https://dexie.org/assets/images/dexie-logo-icon-menu-dark-img.svg" class="dexie-logo-icon-menu" />Dexie Cloud<span class="beta">BETA</span></a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Docs <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="https://dexie.org/docs/">Dexie.js Docs</a></li>
+            <li><a href="https://dexie.org/docs/API-Reference#quick-reference">Dexie.js Cheat Sheet</a></li>
+            <li><a href="https://dexie.org/docs/Samples">Dexie.js Samples</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="https://dexie.org/cloud/docs/">Dexie Cloud Docs</a></li>
+            <li><a href="https://dexie.org/cloud/docs/cli">Dexie Cloud CLI</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Support <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="http://stackoverflow.com/questions/tagged/dexie">Dexie Questions on StackOverflow</a></li>
+            <li><a href="https://github.com/dfahlander/Dexie.js/issues?utf8=%E2%9C%93&amp;q=is%3Aissue%20label%3Aquestion">Questions on GitHub</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="http://stackoverflow.com/questions/ask?tags=dexie">Ask new question on Stackoverflow (best chance for a reply)</a></li>
+            <li><a href="https://github.com/dfahlander/Dexie.js/issues/new">File a GitHub issue on Dexie.js</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="https://dexie.org/contact">Contact</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Who use Dexie? <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a target="_blank" href="https://www.whatsapp.com/"><img class="icon" src="https://dexie.org/assets/images/whatsapp.png"> WhatsApp</a></li>
+            <li><a target="_blank" href="https://todo.microsoft.com/"><img class="icon" src="https://dexie.org/assets/images/microsoft-todo.ico"> Microsoft To Do</a></li>
+            <li><a target="_blank" href="https://desktop.github.com/"><img class="icon" src="https://dexie.org/assets/images/github-desktop-icon.svg" > Github Desktop</a></li>
+            <li><a target="_blank" href="https://www.flightradar24.com/"><img class="icon" src="https://dexie.org/assets/images/flightradar24.svg"> Flightradar24 - real-time flight info</a></li>
+            <li><a target="_blank" href="https://wire.com/"><img class="icon" src="https://dexie.org/assets/images/wire-icon.ico"> Wire - An end-to-end encrypted chat application</a></li>
+            <li><a target="_blank" href="https://getmemex.com/"><img class="icon" src="https://dexie.org/assets/images/memex-icon.png"> Memex - Bookmarking for power users</a></li>
+            <li><a target="_blank" href="https://github.com/dfahlander/Dexie.js/network/dependents?package_id=UGFja2FnZS0xMzg0ODIyOQ%3D%3D">... more than 5000 repos on GitHub</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a target="_blank" href="https://trends.builtwith.com/javascript/Dexie.js"><img class="icon" src="https://dexie.org/assets/images/builtwith-icon.ico"> Builtwith.com's usage stats for Dexie.js</a></li>
+            <li><a target="_blank" href="https://w3techs.com/technologies/overview/javascript_library"><img class="icon" src="https://dexie.org/assets/images/w3techs-icon.ico"> Dexie.js is among the <span style="font-weight: bold">Top-30</span> JS libraries according to w3techs.com</a></li>
+          </ul>
+        </li>
+        <li><a href="https://dexie.org/contact">Contact </a></li>
+        
+        <li><a href="https://github.com/dfahlander/Dexie.js/releases">Releases </a></li>
+        <li><a href="https://medium.com/dexie-js">Blog </a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+
+    <div id="offline-switch" title="Make Dexie documentation available offline">
+      <span id="offlineOffHeading">Make available offline</span>
+      <span id="offlineOnHeading">Available offline</span>
+      <label class="switch">
+        <input
+          id="offline-checkbox"
+          type="checkbox"
+          onchange="setOffline(event.target.checked)"
+        />
+        <span class="slider round"></span>
+      </label>
+      <script>
+        updateSwitchFromStorage();
+      </script>
+    </div>
+    
+  </div><!-- /.container-fluid -->
+</nav>		
+<script>
+    document.querySelectorAll('nav.navbar ul>li>a').forEach(function (a) {
+      var href = a.getAttribute('href');
+      href = href && href.split('#')[0];
+      if (href && location.pathname === href) {
+        //console.log("Selected: ", a.href);
+        a.closest('li').className += ' active';
+      }
+    });
+</script>
+
+    <header class="site-header">
+  <div class="jumbotron docs-page-jumbotron">
+    <div class="container">
+      <!-- <div style="position:relative; margin:0;padding:0; width: 100%;">
+        <a href="/cloud/" style="position: absolute; top: 0; right: 200px;">
+          <h1>Need Sync?</h1>
+        </a>
+      </div> -->
+      <a href="https://dexie.org/">
+        <img src="https://dexie.org/assets/images/dexie-logo-icon.svg" class="dexie-logo-icon" />
+        <h1>Dexie.js Docs</h1>
+      </a>
+      <a href="https://dexie.org/cloud/" id="cloud-promoter">
+        <div class="shoutouts">
+          <p>Need sync?</p>
+          <p>Create collaborative offline-first apps</p>
+          <p>Easy to get started</p>
+        </div>
+        <p>Coming soon: Dexie Cloud<span class="beta">BETA</span><span style="display: inline-block; margin-left: -1em;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&raquo;</span></p>
+  </a>  
+    <!-- Github star button -->
+<div id="star-button">
+  <!-- Place this tag where you want the button to render. -->
+  <a class="github-button" href="https://github.com/dfahlander/Dexie.js" data-size="large" data-show-count="true" aria-label="Star dfahlander/Dexie.js on GitHub">Star</a>
+</div>
+<!-- Place this tag in your head or just before your close body tag. -->
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+      
+    </div>
+</div>
+</header>
+<script src="https://dexie.org/assets/js/anime.min.js"></script>
+<script src="https://dexie.org/assets/js/shoutouts.js"></script>
+
+
+    <main class="container">
+      <h2 id="safari-related-issues">Safari-related issues</h2>
+
+<ul>
+  <li><a href="https://github.com/dfahlander/Dexie.js/issues/508">Database opening hangs in Safari 10.1</a>. <a href="https://bugs.webkit.org/show_bug.cgi?id=171049">Reported to bugs.webkit.org</a></li>
+  <li><a href="https://github.com/dfahlander/Dexie.js/issues/559">Crash when using with fastClickjs</a></li>
+  <li>Solved: <a href="https://github.com/dfahlander/Dexie.js/issues/565">Crash issue with getAll() on Safari 10.1</a>. Worked around in Dexie and solved in Safari 11.</li>
+  <li><a href="https://github.com/dfahlander/Dexie.js/issues/585">Safari and CryptoKeys</a></li>
+  <li>WORKED AROUND IN DEXIE 3.0: <a href="https://github.com/dfahlander/Dexie.js/issues/594">Safari + where + modify = only one updated</a></li>
+  <li><a href="https://github.com/dfahlander/Dexie.js/issues/616">Safari Upgrade issue: Can’t create Dexie database in Safari 11.0.1 (11604.3.5.1.1)</a></li>
+  <li><a href="https://github.com/dfahlander/Dexie.js/issues/618">Safari 11 add blob becomes null</a></li>
+  <li>MAJOR: <a href="https://github.com/dfahlander/Dexie.js/issues/656">Safari save Uint8Array in DB</a></li>
+  <li><a href="https://github.com/dfahlander/Dexie.js/issues/668">Chrashed Page on Safari</a></li>
+</ul>
+
+
+    </main>
+
+    <footer class="container">
+  <p>Dexie.js - A Minimalistic Wrapper for IndexedDB</p>
+  <p>&copy; 2014-2020 Dexie.js is the creation of David Fahlander.</p>
+</footer>
+
+
+    <script src='https://dexie.org/assets/js/prism-2020.js'></script>
+		<script src='https://dexie.org/assets/js/jquery.min.js'></script>
+		<script src='https://dexie.org/assets/js/bootstrap.min.js'></script>
+
+    <script>
+  if (/disableAnalytics/i.test(location.search)) {
+    var expiration_date = new Date();
+    expiration_date.setYear (expiration_date.getFullYear () + 1);
+    expiration_date = expiration_date.toGMTString();
+    document.cookie = "ignoreGA=1; expires=" + expiration_date + "; domain=dexie.org";
+  }
+  if (!/ignoreGA\=1/.test(document.cookie) && !/localhost/.test(location.host)) {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-7780680-5', 'auto');
+    ga('send', 'pageview');
+  }
+</script>
+
+
+    <!-- Include dexie for people wanting to open devtools to laborate -->
+    <script async src='https://unpkg.com/dexie'></script>
+    
+    <!-- Highlight anchors the same way as github wiki works -->
+    <script defer src="https://dexie.org/assets/js/highlight-anchors.js"></script>
+    
+  </body>
+
+
+<!-- Mirrored from dexie.org/docs/safari-issues by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 07 Mar 2021 15:41:07 GMT -->
+</html>
